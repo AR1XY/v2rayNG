@@ -612,4 +612,13 @@ object Utils {
             ""
         }
     }
+// Codarixy расшифровка
+fun codarixyDecrypt(encoded: String, key: String): String {
+    val encrypted = android.util.Base64.decode(encoded, android.util.Base64.DEFAULT)
+    val keyBytes = key.toByteArray()
+    val result = ByteArray(encrypted.size)
+    for (i in encrypted.indices) {
+        result[i] = (encrypted[i] xor keyBytes[i % keyBytes.size]).toByte()
+    }
+    return String(result, Charsets.UTF_8)
 }
